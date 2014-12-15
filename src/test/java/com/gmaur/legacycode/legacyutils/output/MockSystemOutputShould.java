@@ -44,9 +44,7 @@ public class MockSystemOutputShould {
 	public void putting_the_original_output_back_should_output_to_sys_out() {
 		MockSystemOutput.inject().undoInjection();
 
-		final MockSystemOutput secondSystemOut = MockSystemOutput.inject();
-		System.out.println(MESSAGE);
-		assertThat(secondSystemOut.toString(), equalTo(addLineSeparatorTo(MESSAGE)));
+		capture_a_single_line_of_the_system_output();
 	}
 
 	private String addLineSeparatorTo(final String... string) {
