@@ -7,11 +7,16 @@
  */
 package com.gmaur.legacycode.legacyutils.output;
 
+import static com.gmaur.legacycode.legacyutils.output.StringIsEqualsAsPreviousInMatcher.isEqualsAsPreviousIn;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
+import org.junit.Ignore;
 import org.junit.Test;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class MockSystemOutputShould {
 
@@ -52,6 +57,15 @@ public class MockSystemOutputShould {
 		MockSystemOutput.inject().undoInjection();
 
 		capture_a_single_line_of_the_system_output();
+	}
+
+	@Test
+	public void saving_output_in_file_and_compare() {
+		final MockSystemOutput systemOutput = MockSystemOutput.inject();
+		System.out.println(MESSAGE);
+		System.out.println(ANOTHER_MESSAGE);
+
+		assertThat(systemOutput.toString(), isEqualsAsPreviousIn("file.expected"));
 	}
 
 	private String addLineSeparatorTo(final String... string) {
